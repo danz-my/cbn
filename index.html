@@ -1,601 +1,483 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CBN Fiber — Internet Cepat & Stabil</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-<style>
-:root {
-  --blue-950: #020b1a;
-  --blue-900: #041229;
-  --blue-800: #072040;
-  --blue-700: #0a3060;
-  --blue-600: #0d4280;
-  --blue-500: #1160b8;
-  --blue-400: #2280e8;
-  --blue-300: #5aaaf8;
-  --blue-100: #d0e8ff;
-  --blue-50:  #edf5ff;
-  --gold:     #f5c842;
-  --gold-dim: #c49a20;
-  --green:    #22c55e;
-  --white:    #ffffff;
-  --text:     #e2eaf5;
-  --muted:    #7a95b8;
-  --radius:   14px;
-  --shadow:   0 8px 40px rgba(0,0,0,0.4);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--blue-950);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
-}
-h1,h2,h3,h4{font-family:'Syne',sans-serif;letter-spacing:-0.02em}
-a{color:inherit;text-decoration:none}
-img{max-width:100%}
-button{font-family:'DM Sans',sans-serif;cursor:pointer;border:none;outline:none}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--blue-900)}
-::-webkit-scrollbar-thumb{background:var(--blue-600);border-radius:3px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBN Fiber — Internet Cepat & Stabil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== LIGHT THEME ===== */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --border-medium: #cbd5e1;
+      
+      --blue-50: #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-300: #93c5fd;
+      --blue-400: #60a5fa;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      
+      --green-500: #22c55e;
+      --green-600: #16a34a;
+      
+      --radius: 14px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
 
-#banner-overlay{
-  position:fixed;inset:0;z-index:1000;
-  background:rgba(2,11,26,0.85);
-  backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;
-  padding:1rem;
-  animation:fadeIn .3s ease;
-}
-#banner-overlay.hidden{display:none}
-#banner-box{
-  background:linear-gradient(145deg,#0d1f3c,#071428);
-  border:1px solid rgba(93,170,248,0.25);
-  border-radius:20px;
-  max-width:520px;width:100%;
-  overflow:hidden;
-  box-shadow:0 0 80px rgba(34,128,232,0.25),var(--shadow);
-  position:relative;
-  animation:slideUp .4s cubic-bezier(.22,.68,0,1.2);
-}
-.banner-head{
-  background:linear-gradient(135deg,#d4261a,#ff4e1a,#d4261a);
-  padding:1.5rem 1.5rem 1rem;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.banner-head::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,0.04) 8px,rgba(255,255,255,0.04) 16px);
-}
-.banner-head .promo-tag{
-  display:inline-flex;align-items:center;gap:.4rem;
-  background:rgba(255,255,255,0.15);
-  border:1px solid rgba(255,255,255,0.3);
-  border-radius:99px;
-  padding:.3rem .9rem;
-  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:#fff;margin-bottom:.75rem;
-}
-.banner-head h2{
-  font-size:1.9rem;color:#fff;line-height:1.1;
-  text-shadow:0 2px 12px rgba(0,0,0,0.4);
-}
-.banner-head h2 span{color:var(--gold)}
-.banner-body{padding:1.5rem}
-.banner-perks{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem}
-.perk{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(93,170,248,0.15);
-  border-radius:12px;
-  padding:.9rem;text-align:center;
-}
-.perk .perk-val{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--gold);line-height:1}
-.perk .perk-label{font-size:.75rem;color:var(--muted);margin-top:.25rem}
-.banner-note{
-  font-size:.8rem;color:var(--muted);text-align:center;line-height:1.5;margin-bottom:1.25rem;
-}
-.banner-note strong{color:var(--blue-300)}
-.banner-actions{display:flex;flex-direction:column;gap:.6rem}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  padding:.85rem 1.5rem;border-radius:var(--radius);
-  font-weight:600;font-size:.9rem;
-  transition:all .2s;cursor:pointer;
-}
-.btn-primary{
-  background:linear-gradient(135deg,var(--blue-400),var(--blue-500));
-  color:#fff;
-  box-shadow:0 4px 20px rgba(34,128,232,0.35);
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(34,128,232,0.5)}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--muted);font-size:.82rem;padding:.6rem 1rem}
-.btn-ghost:hover{border-color:var(--blue-300);color:var(--blue-300)}
-.btn-wa{background:linear-gradient(135deg,#25d366,#1da851);color:#fff;box-shadow:0 4px 20px rgba(37,211,102,0.3)}
-.btn-wa:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(37,211,102,0.45)}
-#banner-close{
-  position:absolute;top:.75rem;right:.75rem;
-  background:rgba(255,255,255,0.15);border:none;
-  width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;color:#fff;cursor:pointer;
-  transition:background .2s;
-}
-#banner-close:hover{background:rgba(255,255,255,0.3)}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; letter-spacing: -0.02em; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; outline: none; background: none; }
+    
+    /* custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-tertiary); }
+    ::-webkit-scrollbar-thumb { background: var(--blue-300); border-radius: 3px; }
 
-nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(2,11,26,0.85);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(93,170,248,0.1);
-  padding:.9rem 1.5rem;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-}
-.logo{
-  display:flex;align-items:center;gap:.6rem;
-  font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;
-}
-.logo-icon{
-  width:36px;height:36px;border-radius:10px;
-  background:linear-gradient(135deg,var(--blue-400),var(--blue-500));
-  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
-}
-.logo span{color:var(--blue-300)}
-.nav-links{display:flex;align-items:center;gap:.25rem}
-.nav-links a{
-  padding:.5rem .9rem;border-radius:8px;
-  font-size:.875rem;font-weight:500;color:var(--muted);
-  transition:all .2s;
-}
-.nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.06)}
-.nav-links a.active{color:var(--blue-300);background:rgba(34,128,232,0.1)}
-.nav-cta{
-  background:var(--blue-400);color:#fff;
-  padding:.55rem 1.1rem;border-radius:10px;
-  font-size:.875rem;font-weight:600;
-  transition:all .2s;white-space:nowrap;
-}
-.nav-cta:hover{background:var(--blue-500);transform:translateY(-1px)}
-.hamburger{display:none;background:transparent;border:none;color:#fff;font-size:1.4rem;padding:.2rem;cursor:pointer}
+    /* ===== NAVBAR ===== */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.9rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--text-primary);
+    }
+    .logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+      color: white;
+    }
+    .logo span { color: var(--blue-600); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a {
+      padding: 0.5rem 0.9rem; border-radius: 8px;
+      font-size: 0.875rem; font-weight: 500; color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue-600); background: var(--blue-50); }
+    .nav-links a.active { color: var(--blue-600); background: var(--blue-50); font-weight: 600; }
+    .nav-cta {
+      background: var(--blue-600); color: #fff;
+      padding: 0.55rem 1.1rem; border-radius: 10px;
+      font-size: 0.875rem; font-weight: 600;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--blue-700); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .hamburger { display: none; color: var(--text-primary); font-size: 1.4rem; padding: 0.2rem; }
 
-.hero{
-  min-height:85vh;
-  display:flex;align-items:center;
-  padding:4rem 1.5rem;
-  position:relative;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 70% 50%,rgba(34,128,232,0.12) 0%,transparent 70%),
-    radial-gradient(ellipse 40% 40% at 20% 80%,rgba(13,66,128,0.2) 0%,transparent 60%),
-    var(--blue-950);
-}
-.hero-grid{
-  position:absolute;inset:0;z-index:0;
-  background-image:
-    linear-gradient(rgba(34,128,232,0.06) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(34,128,232,0.06) 1px,transparent 1px);
-  background-size:48px 48px;
-  mask-image:radial-gradient(ellipse at 60% 40%,black 20%,transparent 70%);
-}
-.hero-inner{
-  max-width:1100px;margin:0 auto;width:100%;
-  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;
-  position:relative;z-index:1;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:rgba(34,128,232,0.12);
-  border:1px solid rgba(93,170,248,0.25);
-  border-radius:99px;padding:.3rem .9rem;
-  font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--blue-300);margin-bottom:1.25rem;
-}
-.hero-eyebrow span{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 6px var(--green);
-  animation:pulse 2s infinite;
-}
-.hero h1{
-  font-size:clamp(2.2rem,5vw,3.5rem);
-  color:#fff;line-height:1.1;margin-bottom:1.25rem;
-}
-.hero h1 em{font-style:normal;color:var(--blue-300)}
-.hero p{font-size:1.05rem;color:var(--muted);line-height:1.7;max-width:480px;margin-bottom:2rem}
-.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:2.5rem}
-.hero-stats{display:flex;flex-wrap:wrap;gap:1.5rem}
-.stat{display:flex;flex-direction:column}
-.stat-val{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff}
-.stat-label{font-size:.75rem;color:var(--muted)}
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 85vh;
+      display: flex; align-items: center;
+      padding: 4rem 1.5rem;
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: 
+        linear-gradient(var(--blue-100) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blue-100) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+      opacity: 0.5;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--blue-100); border: 1px solid var(--blue-200);
+      border-radius: 99px; padding: 0.3rem 0.9rem;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--blue-700); margin-bottom: 1.25rem;
+    }
+    .hero-eyebrow span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green-500);
+      box-shadow: 0 0 6px var(--green-500);
+      animation: pulse 2s infinite;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      color: var(--text-primary); line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--blue-600); }
+    .hero p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; max-width: 480px; margin-bottom: 2rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-val { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-primary); }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); }
 
-.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
-.hero-card{
-  background:linear-gradient(145deg,rgba(13,33,64,0.9),rgba(7,20,40,0.95));
-  border:1px solid rgba(93,170,248,0.2);
-  border-radius:20px;padding:1.5rem;
-  width:100%;max-width:380px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.5);
-  backdrop-filter:blur(10px);
-}
-.hero-card-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1.25rem;
-}
-.hero-card-title{font-size:.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.status-dot{
-  display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--green);
-}
-.status-dot::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--green);
-  box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;
-}
-.speed-display{
-  text-align:center;padding:1rem 0;
-  border-bottom:1px solid rgba(93,170,248,0.1);margin-bottom:1rem;
-}
-.speed-num{font-family:'Syne',sans-serif;font-size:3.5rem;font-weight:800;color:#fff;line-height:1}
-.speed-unit{font-size:.9rem;color:var(--blue-300);font-weight:600}
-.speed-label{font-size:.75rem;color:var(--muted);margin-top:.25rem}
-.mini-packages{display:flex;flex-direction:column;gap:.5rem}
-.mini-pkg{
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(93,170,248,0.1);
-  border-radius:10px;padding:.65rem .9rem;
-  transition:border-color .2s;
-}
-.mini-pkg:hover{border-color:rgba(93,170,248,0.35)}
-.mini-pkg-speed{font-size:.85rem;font-weight:700;color:#fff}
-.mini-pkg-sub{font-size:.7rem;color:var(--muted)}
-.mini-pkg-price{font-size:.85rem;font-weight:700;color:var(--blue-300);text-align:right}
-.mini-pkg-price small{display:block;font-size:.65rem;color:var(--muted);font-weight:400}
-.float-badge{
-  position:absolute;
-  background:linear-gradient(135deg,var(--gold),#e8a800);
-  color:#000;border-radius:12px;padding:.6rem 1rem;
-  font-family:'Syne',sans-serif;font-size:.8rem;font-weight:800;
-  box-shadow:0 6px 20px rgba(245,200,66,0.4);
-  animation:float 5s ease-in-out infinite;
-}
-.badge-gratis{top:-16px;right:0px}
-.badge-bonus{bottom:-16px;left:-16px}
+    .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+    .hero-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-light);
+      border-radius: 20px; padding: 1.5rem;
+      width: 100%; max-width: 380px;
+      box-shadow: var(--shadow-xl);
+      backdrop-filter: blur(10px);
+    }
+    .hero-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .hero-card-title { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .status-dot {
+      display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--green-600);
+    }
+    .status-dot::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green-500);
+      box-shadow: 0 0 6px var(--green-500); animation: pulse 2s infinite;
+    }
+    .speed-display {
+      text-align: center; padding: 1rem 0;
+      border-bottom: 1px solid var(--border-light); margin-bottom: 1rem;
+    }
+    .speed-num { font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800; color: var(--text-primary); line-height: 1; }
+    .speed-unit { font-size: 0.9rem; color: var(--blue-600); font-weight: 600; }
+    .speed-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .mini-packages { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mini-pkg {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg-secondary); border: 1px solid var(--border-light);
+      border-radius: 10px; padding: 0.65rem 0.9rem;
+      transition: border-color 0.2s;
+    }
+    .mini-pkg:hover { border-color: var(--blue-300); background: white; }
+    .mini-pkg-speed { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+    .mini-pkg-sub { font-size: 0.7rem; color: var(--text-muted); }
+    .mini-pkg-price { font-size: 0.85rem; font-weight: 700; color: var(--blue-600); text-align: right; }
+    .mini-pkg-price small { display: block; font-size: 0.65rem; color: var(--text-muted); font-weight: 400; }
 
-.section{padding:5rem 1.5rem}
-.container{max-width:1100px;margin:0 auto;width:100%}
-.section-eyebrow{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:rgba(34,128,232,0.1);
-  border:1px solid rgba(93,170,248,0.2);
-  border-radius:99px;padding:.3rem .9rem;
-  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--blue-300);margin-bottom:.9rem;
-}
-.section-title{font-size:clamp(1.8rem,4vw,2.5rem);color:#fff;margin-bottom:.75rem}
-.section-sub{font-size:1rem;color:var(--muted);line-height:1.6;max-width:560px}
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; border-radius: var(--radius);
+      font-weight: 600; font-size: 0.9rem;
+      transition: all 0.2s; cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); background: var(--blue-700); }
+    .btn-ghost {
+      background: transparent; border: 1px solid var(--border-medium);
+      color: var(--text-secondary); font-size: 0.82rem; padding: 0.6rem 1rem;
+    }
+    .btn-ghost:hover { border-color: var(--blue-400); color: var(--blue-600); background: var(--blue-50); }
+    .btn-wa {
+      background: #25d366; color: #fff;
+      box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+    }
+    .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3); background: #1da851; }
 
-#paket{background:linear-gradient(180deg,var(--blue-950) 0%,var(--blue-900) 50%,var(--blue-950) 100%)}
-.promo-banner-strip{
-  background:linear-gradient(135deg,#c41a10,#e83020,#c41a10);
-  border-radius:16px;
-  padding:1.25rem 1.75rem;
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;
-  margin-bottom:2.5rem;
-  position:relative;overflow:hidden;
-}
-.promo-banner-strip::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(255,255,255,0.04) 10px,rgba(255,255,255,0.04) 20px);
-}
-.promo-strip-text{position:relative;z-index:1}
-.promo-strip-text h3{font-size:1.3rem;color:#fff;margin-bottom:.25rem}
-.promo-strip-text p{font-size:.85rem;color:rgba(255,255,255,0.75)}
-.promo-strip-perks{display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:1}
-.strip-perk{
-  background:rgba(255,255,255,0.15);
-  border:1px solid rgba(255,255,255,0.25);
-  border-radius:10px;padding:.5rem 1rem;
-  text-align:center;
-}
-.strip-perk strong{display:block;font-family:'Syne',sans-serif;font-size:1.3rem;color:var(--gold)}
-.strip-perk span{font-size:.7rem;color:rgba(255,255,255,0.8)}
+    /* ===== SECTIONS ===== */
+    .section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; width: 100%; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--blue-50); border: 1px solid var(--blue-200);
+      border-radius: 99px; padding: 0.3rem 0.9rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--blue-700); margin-bottom: 0.9rem;
+    }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--text-primary); margin-bottom: 0.75rem; }
+    .section-sub { font-size: 1rem; color: var(--text-secondary); line-height: 1.6; max-width: 560px; }
 
-.packages-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:1rem;
-}
-.pkg-card{
-  background:linear-gradient(145deg,rgba(13,33,64,0.7),rgba(7,20,40,0.9));
-  border:1px solid rgba(93,170,248,0.12);
-  border-radius:18px;
-  padding:1.5rem;
-  position:relative;
-  transition:all .3s;
-  cursor:pointer;
-}
-.pkg-card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(93,170,248,0.4);
-  box-shadow:0 12px 40px rgba(34,128,232,0.2);
-}
-.pkg-card.selected{
-  border-color:var(--blue-400);
-  background:linear-gradient(145deg,rgba(17,96,184,0.15),rgba(34,128,232,0.08));
-  box-shadow:0 0 0 2px rgba(34,128,232,0.3),0 12px 40px rgba(34,128,232,0.2);
-}
-.pkg-badge{
-  position:absolute;top:-10px;left:50%;transform:translateX(-50%);
-  background:var(--blue-400);color:#fff;
-  border-radius:99px;padding:.2rem .75rem;
-  font-size:.7rem;font-weight:700;letter-spacing:.04em;white-space:nowrap;
-}
-.pkg-speed{
-  font-family:'Syne',sans-serif;
-  font-size:2.8rem;font-weight:800;color:#fff;line-height:1;
-  margin-top:.5rem;
-}
-.pkg-speed sup{font-size:1rem;color:var(--blue-300)}
-.pkg-speed-sub{font-size:.75rem;color:var(--muted);margin-bottom:1rem}
-.pkg-price{
-  font-family:'Syne',sans-serif;
-  font-size:1.35rem;font-weight:700;color:var(--blue-300);
-  margin-bottom:.2rem;
-}
-.pkg-price-label{font-size:.72rem;color:var(--muted)}
-.pkg-divider{height:1px;background:rgba(93,170,248,0.1);margin:1rem 0}
-.pkg-features{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.pkg-features li{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--text)}
-.pkg-features li i{color:var(--green);font-size:.75rem;width:1rem}
-.pkg-select-btn{
-  width:100%;margin-top:1.25rem;
-  padding:.75rem;border-radius:10px;
-  background:rgba(34,128,232,0.12);
-  border:1px solid rgba(93,170,248,0.2);
-  color:var(--blue-300);font-weight:600;font-size:.85rem;
-  transition:all .2s;
-}
-.pkg-select-btn:hover{background:var(--blue-400);border-color:var(--blue-400);color:#fff}
-.pkg-card.selected .pkg-select-btn{background:var(--blue-400);border-color:var(--blue-400);color:#fff}
+    /* ===== PACKAGES ===== */
+    #paket { background: var(--bg-secondary); }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .pkg-card {
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      padding: 1.5rem;
+      position: relative;
+      transition: all 0.3s;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .pkg-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--blue-300);
+      box-shadow: var(--shadow-lg);
+    }
+    .pkg-card.selected {
+      border-color: var(--blue-500);
+      background: var(--blue-50);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2), var(--shadow-lg);
+    }
+    .pkg-badge {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: var(--blue-600); color: #fff;
+      border-radius: 99px; padding: 0.2rem 0.75rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; white-space: nowrap;
+    }
+    .pkg-speed {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.8rem; font-weight: 800; color: var(--text-primary); line-height: 1;
+      margin-top: 0.5rem;
+    }
+    .pkg-speed sup { font-size: 1rem; color: var(--blue-600); }
+    .pkg-speed-sub { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .pkg-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.35rem; font-weight: 700; color: var(--blue-700);
+      margin-bottom: 0.2rem;
+    }
+    .pkg-price-label { font-size: 0.72rem; color: var(--text-muted); }
+    .pkg-divider { height: 1px; background: var(--border-light); margin: 1rem 0; }
+    .pkg-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .pkg-features li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-secondary); }
+    .pkg-features li i { color: var(--green-600); font-size: 0.75rem; width: 1rem; }
+    .pkg-select-btn {
+      width: 100%; margin-top: 1.25rem;
+      padding: 0.75rem; border-radius: 10px;
+      background: var(--blue-50); border: 1px solid var(--blue-200);
+      color: var(--blue-700); font-weight: 600; font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .pkg-select-btn:hover { background: var(--blue-100); border-color: var(--blue-400); }
+    .pkg-card.selected .pkg-select-btn { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
 
-#pesan{
-  background:linear-gradient(180deg,var(--blue-950) 0%,rgba(7,32,64,0.3) 100%);
-}
-.order-wrapper{
-  max-width:600px;margin:0 auto;
-  background:linear-gradient(145deg,rgba(13,33,64,0.6),rgba(7,20,40,0.8));
-  border:1px solid rgba(93,170,248,0.15);
-  border-radius:24px;padding:2.5rem;
-  box-shadow:var(--shadow);
-}
-.step-indicator{
-  display:flex;align-items:center;gap:.5rem;
-  margin-bottom:2rem;
-}
-.step-dot{
-  width:32px;height:32px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:700;
-  transition:all .3s;flex-shrink:0;
-}
-.step-dot.active{background:var(--blue-400);color:#fff;box-shadow:0 0 12px rgba(34,128,232,0.5)}
-.step-dot.done{background:var(--green);color:#fff}
-.step-dot.pending{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid rgba(255,255,255,0.1)}
-.step-line{flex:1;height:1px;background:rgba(255,255,255,0.08)}
-.step-line.done{background:var(--green)}
+    /* ===== ORDER FORM ===== */
+    #pesan { background: var(--bg-primary); }
+    .order-wrapper {
+      max-width: 600px; margin: 0 auto;
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 24px; padding: 2.5rem;
+      box-shadow: var(--shadow-xl);
+    }
+    .step-indicator {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .step-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      transition: all 0.3s; flex-shrink: 0;
+      background: white; border: 1px solid var(--border-medium); color: var(--text-muted);
+    }
+    .step-dot.active { background: var(--blue-600); color: #fff; border-color: var(--blue-600); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+    .step-dot.done { background: var(--green-500); color: #fff; border-color: var(--green-500); }
+    .step-dot.pending { background: var(--bg-tertiary); color: var(--text-muted); border-color: var(--border-light); }
+    .step-line { flex: 1; height: 1px; background: var(--border-light); }
+    .step-line.done { background: var(--green-500); }
 
-.order-step{display:none}
-.order-step.active{display:block;animation:fadeIn .3s ease}
+    .order-step { display: none; }
+    .order-step.active { display: block; animation: fadeIn 0.3s ease; }
 
-.form-group{margin-bottom:1.1rem}
-.form-label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em}
-.form-input{
-  width:100%;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(93,170,248,0.15);
-  border-radius:10px;
-  padding:.8rem 1rem;
-  color:#fff;font-size:.9rem;font-family:'DM Sans',sans-serif;
-  transition:border-color .2s,box-shadow .2s;
-}
-.form-input:focus{outline:none;border-color:var(--blue-400);box-shadow:0 0 0 3px rgba(34,128,232,0.15)}
-.form-input::placeholder{color:rgba(255,255,255,0.2)}
-select.form-input option{background:var(--blue-900);color:#fff}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.step-title{font-size:1.5rem;color:#fff;margin-bottom:.35rem}
-.step-sub{font-size:.875rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.5}
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-input {
+      width: 100%;
+      background: white;
+      border: 1px solid var(--border-medium);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      color: var(--text-primary); font-size: 0.9rem; font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus { outline: none; border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
+    .form-input::placeholder { color: var(--text-muted); }
+    select.form-input option { background: white; color: var(--text-primary); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .step-title { font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.35rem; }
+    .step-sub { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.75rem; line-height: 1.5; }
 
-.type-cards{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.5rem}
-.type-card{
-  background:rgba(255,255,255,0.03);
-  border:2px solid rgba(93,170,248,0.12);
-  border-radius:14px;padding:1.25rem;
-  cursor:pointer;text-align:center;
-  transition:all .25s;
-}
-.type-card:hover{border-color:rgba(93,170,248,0.3);background:rgba(34,128,232,0.05)}
-.type-card.selected{border-color:var(--blue-400);background:rgba(34,128,232,0.1)}
-.type-icon{font-size:1.8rem;margin-bottom:.5rem}
-.type-name{font-weight:700;font-size:.9rem;color:#fff;margin-bottom:.25rem}
-.type-desc{font-size:.75rem;color:var(--muted);line-height:1.4}
+    .type-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.5rem; }
+    .type-card {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-light);
+      border-radius: 14px; padding: 1.25rem;
+      cursor: pointer; text-align: center;
+      transition: all 0.25s;
+    }
+    .type-card:hover { border-color: var(--blue-300); background: white; }
+    .type-card.selected { border-color: var(--blue-500); background: var(--blue-50); }
+    .type-icon { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--blue-600); }
+    .type-name { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.25rem; }
+    .type-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
 
-.selected-pkg-summary{
-  background:rgba(34,128,232,0.08);
-  border:1px solid rgba(93,170,248,0.2);
-  border-radius:12px;padding:1rem 1.25rem;
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1.5rem;
-}
-.summary-speed{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:#fff}
-.summary-price{font-size:.85rem;font-weight:700;color:var(--blue-300)}
-.summary-label{font-size:.7rem;color:var(--muted)}
+    .selected-pkg-summary {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-200);
+      border-radius: 12px; padding: 1rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .summary-speed { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--text-primary); }
+    .summary-price { font-size: 0.85rem; font-weight: 700; color: var(--blue-700); }
+    .summary-label { font-size: 0.7rem; color: var(--text-muted); }
 
-.action-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem}
-.btn-back{
-  background:transparent;
-  border:1px solid rgba(255,255,255,0.1);
-  color:var(--muted);padding:.8rem 1.25rem;
-  border-radius:10px;font-size:.875rem;font-weight:600;
-  transition:all .2s;
-}
-.btn-back:hover{border-color:var(--blue-300);color:var(--blue-300)}
-.btn-next{
-  flex:1;
-  background:linear-gradient(135deg,var(--blue-400),var(--blue-500));
-  color:#fff;padding:.8rem 1.5rem;
-  border-radius:10px;font-size:.9rem;font-weight:700;
-  box-shadow:0 4px 20px rgba(34,128,232,0.3);
-  transition:all .2s;
-}
-.btn-next:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(34,128,232,0.45)}
-.btn-next:disabled{opacity:.45;transform:none;cursor:not-allowed}
+    .action-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .btn-back {
+      background: transparent;
+      border: 1px solid var(--border-medium);
+      color: var(--text-secondary); padding: 0.8rem 1.25rem;
+      border-radius: 10px; font-size: 0.875rem; font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-back:hover { border-color: var(--blue-400); color: var(--blue-600); background: var(--blue-50); }
+    .btn-next {
+      flex: 1;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+      color: #fff; padding: 0.8rem 1.5rem;
+      border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+      box-shadow: var(--shadow-md);
+      transition: all 0.2s;
+    }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); background: var(--blue-700); }
+    .btn-next:disabled { opacity: 0.45; transform: none; cursor: not-allowed; }
 
-.done-icon{
-  width:72px;height:72px;border-radius:50%;
-  background:rgba(34,197,94,0.15);
-  border:2px solid rgba(34,197,94,0.3);
-  display:flex;align-items:center;justify-content:center;
-  font-size:2rem;margin:0 auto 1.25rem;
-}
+    .done-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(34, 197, 94, 0.1);
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 1.25rem; color: var(--green-600);
+    }
 
-#keunggulan{background:var(--blue-900)}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:2.5rem}
-.feature-card{
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(93,170,248,0.1);
-  border-radius:16px;padding:1.5rem;
-  transition:all .3s;
-}
-.feature-card:hover{border-color:rgba(93,170,248,0.3);transform:translateY(-4px)}
-.feature-icon{font-size:2rem;margin-bottom:.9rem}
-.feature-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.4rem}
-.feature-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
+    /* ===== FEATURES ===== */
+    #keunggulan { background: var(--bg-primary); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+    .feature-card {
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 16px; padding: 1.5rem;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+    .feature-card:hover { border-color: var(--blue-300); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .feature-icon { font-size: 2rem; margin-bottom: 0.9rem; color: var(--blue-600); }
+    .feature-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+    .feature-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
 
-#kontak{background:var(--blue-950)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
-.contact-info{display:flex;flex-direction:column;gap:1rem}
-.contact-item{
-  display:flex;align-items:flex-start;gap:1rem;
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(93,170,248,0.1);
-  border-radius:14px;padding:1.1rem 1.25rem;
-  transition:border-color .2s;
-}
-.contact-item:hover{border-color:rgba(93,170,248,0.3)}
-.contact-icon{
-  width:40px;height:40px;border-radius:10px;flex-shrink:0;
-  background:rgba(34,128,232,0.12);
-  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
-}
-.contact-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem}
-.contact-val{font-size:.9rem;font-weight:600;color:#fff}
-.contact-val a{color:var(--blue-300);transition:color .2s}
-.contact-val a:hover{color:#fff}
-.contact-cta{
-  background:linear-gradient(145deg,rgba(13,33,64,0.6),rgba(7,20,40,0.8));
-  border:1px solid rgba(93,170,248,0.15);
-  border-radius:20px;padding:2rem;
-  text-align:center;
-}
-.contact-cta h3{font-size:1.4rem;color:#fff;margin-bottom:.5rem}
-.contact-cta p{font-size:.875rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
-.contact-cta-buttons{display:flex;flex-direction:column;gap:.75rem}
+    /* ===== CONTACT ===== */
+    #kontak { background: var(--bg-secondary); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 14px; padding: 1.1rem 1.25rem;
+      transition: border-color 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-item:hover { border-color: var(--blue-300); }
+    .contact-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: var(--blue-50);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+      color: var(--blue-600);
+    }
+    .contact-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+    .contact-val { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+    .contact-val a { color: var(--blue-600); transition: color 0.2s; }
+    .contact-val a:hover { color: var(--blue-800); }
+    .contact-cta {
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 20px; padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .contact-cta h3 { font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .contact-cta p { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+    .contact-cta-buttons { display: flex; flex-direction: column; gap: 0.75rem; }
 
-footer{
-  background:var(--blue-900);
-  border-top:1px solid rgba(93,170,248,0.08);
-  padding:2rem 1.5rem;text-align:center;
-}
-footer p{font-size:.8rem;color:var(--muted)}
-footer strong{color:var(--blue-300)}
+    /* ===== FOOTER ===== */
+    footer {
+      background: white;
+      border-top: 1px solid var(--border-light);
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    footer p { font-size: 0.8rem; color: var(--text-muted); }
+    footer strong { color: var(--blue-600); }
 
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-.animate-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.animate-in.visible{opacity:1;transform:translateY(0)}
+    .animate-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
 
-@media(max-width:768px){
-  .hero-inner{grid-template-columns:1fr}
-  .hero-visual{display:none}
-  .contact-grid{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  nav .nav-links{display:none}
-  nav .nav-links.open{
-    display:flex;flex-direction:column;
-    position:fixed;top:64px;left:0;right:0;
-    background:rgba(2,11,26,0.97);
-    padding:1rem 1.5rem 1.5rem;
-    border-bottom:1px solid rgba(93,170,248,0.1);
-    backdrop-filter:blur(12px);
-    z-index:99;gap:.25rem;
-  }
-  .hamburger{display:block}
-  .nav-cta{display:none}
-  .packages-grid{grid-template-columns:1fr 1fr}
-  .order-wrapper{padding:1.5rem}
-  .type-cards{grid-template-columns:1fr 1fr}
-}
-@media(max-width:480px){
-  .packages-grid{grid-template-columns:1fr}
-  .type-cards{grid-template-columns:1fr}
-  .banner-perks{grid-template-columns:1fr 1fr}
-}
-</style>
+    /* ===== RESPONSIVE ===== */
+    @media(max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+      nav .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: 64px; left: 0; right: 0;
+        background: white;
+        padding: 1rem 1.5rem 1.5rem;
+        border-bottom: 1px solid var(--border-light);
+        box-shadow: var(--shadow-md);
+        z-index: 99; gap: 0.25rem;
+      }
+      .hamburger { display: block; }
+      .nav-cta { display: none; }
+      .packages-grid { grid-template-columns: 1fr 1fr; }
+      .order-wrapper { padding: 1.5rem; }
+      .type-cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width: 480px) {
+      .packages-grid { grid-template-columns: 1fr; }
+      .type-cards { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<div id="banner-overlay">
-  <div id="banner-box">
-    <button id="banner-close" onclick="closeBanner()" aria-label="Tutup"><i class="fas fa-times"></i></button>
-    <div class="banner-head">
-      <div class="promo-tag"><i class="fas fa-gift"></i> Promo Spesial</div>
-      <h2>Elevate <span>Eleven</span><br>CBN Fiber</h2>
-    </div>
-    <div class="banner-body">
-      <div class="banner-perks">
-        <div class="perk">
-          <div class="perk-val">3 Bulan</div>
-          <div class="perk-label">Gratis Berlangganan</div>
-        </div>
-        <div class="perk">
-          <div class="perk-val">250<span style="font-size:.9rem">Mbps</span></div>
-          <div class="perk-label">Bonus Kecepatan</div>
-        </div>
-        <div class="perk">
-          <div class="perk-val">Free</div>
-          <div class="perk-label">Gratis Pasang</div>
-        </div>
-        <div class="perk">
-          <div class="perk-val">Free</div>
-          <div class="perk-label">Gratis Pendaftaran</div>
-        </div>
-      </div>
-      <div class="banner-note">
-        Dapatkan juga <strong>Nonton Streaming Premium</strong> gratis!<br>
-        Promo terbatas — segera daftarkan rumah atau kantormu.
-      </div>
-      <div class="banner-actions">
-        <button class="btn btn-wa" onclick="closeBanner();document.getElementById('pesan').scrollIntoView({behavior:'smooth'})">
-          <i class="fas fa-clipboard-list"></i> Daftar Sekarang — Gratis!
-        </button>
-        <button class="btn btn-ghost" onclick="closeBanner()">Lihat Paket Dulu</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- NAVBAR -->
 <nav id="navbar">
   <a href="#" class="logo">
     <div class="logo-icon"><i class="fas fa-satellite-dish"></i></div>
@@ -611,14 +493,14 @@ footer strong{color:var(--blue-300)}
   <button class="hamburger" id="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
 </nav>
 
+<!-- HERO SECTION -->
 <section class="hero" id="beranda">
-  <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-inner">
     <div class="hero-content animate-in">
       <div class="hero-eyebrow">
         <span></span>
-        Tersedia di Jakarta &amp; Sekitarnya
+        Tersedia di Jakarta & Sekitarnya
       </div>
       <h1>Internet Fiber<br><em>Super Cepat</em>,<br>Koneksi Stabil.</h1>
       <p>CBN Fiber hadir dengan jaringan fiber optik berkecepatan tinggi untuk rumah dan kantor. Streaming, gaming, WFH — semuanya lancar tanpa gangguan.</p>
@@ -636,8 +518,7 @@ footer strong{color:var(--blue-300)}
         <div class="stat"><span class="stat-val">24/7</span><span class="stat-label">Dukungan teknis</span></div>
       </div>
     </div>
-    <div class="hero-visual animate-in" style="animation-delay:.2s">
-      <div class="float-badge badge-gratis"><i class="fas fa-wifi"></i> Gratis Pasang</div>
+    <div class="hero-visual animate-in" style="animation-delay:0.2s">
       <div class="hero-card">
         <div class="hero-card-header">
           <span class="hero-card-title">Paket Aktif</span>
@@ -651,59 +532,48 @@ footer strong{color:var(--blue-300)}
         <div class="mini-packages">
           <div class="mini-pkg">
             <div><div class="mini-pkg-speed">20 Mbps</div><div class="mini-pkg-sub">Entry</div></div>
-            <div class="mini-pkg-price">193.140<small>/bulan</small></div>
+            <div class="mini-pkg-price">Rp 193.140<small>/bulan</small></div>
           </div>
           <div class="mini-pkg">
             <div><div class="mini-pkg-speed">60 Mbps</div><div class="mini-pkg-sub">30+30</div></div>
-            <div class="mini-pkg-price">226.440<small>/bulan</small></div>
+            <div class="mini-pkg-price">Rp 226.440<small>/bulan</small></div>
           </div>
-          <div class="mini-pkg" style="border-color:rgba(34,128,232,0.35)">
-            <div><div class="mini-pkg-speed" style="color:var(--blue-300)">100 Mbps</div><div class="mini-pkg-sub">50+50</div></div>
-            <div class="mini-pkg-price">259.740<small>/bulan</small></div>
+          <div class="mini-pkg" style="border-color:var(--blue-300); background: var(--blue-50);">
+            <div><div class="mini-pkg-speed" style="color:var(--blue-600)">100 Mbps</div><div class="mini-pkg-sub">50+50</div></div>
+            <div class="mini-pkg-price">Rp 259.740<small>/bulan</small></div>
           </div>
         </div>
       </div>
-      <div class="float-badge badge-bonus" style="background:linear-gradient(135deg,#e83020,#c41a10);color:#fff;box-shadow:0 6px 20px rgba(200,50,20,0.4)"><i class="fas fa-bolt"></i> +250Mbps Bonus</div>
     </div>
   </div>
 </section>
 
+<!-- PACKAGES SECTION -->
 <section class="section" id="paket">
   <div class="container">
     <div class="animate-in">
       <span class="section-eyebrow"><i class="fas fa-box"></i> Pilihan Paket</span>
       <h2 class="section-title">Paket Internet CBN Fiber</h2>
-      <p class="section-sub">Pilih kecepatan yang sesuai kebutuhan. Semua paket sudah termasuk promo Elevate Eleven.</p>
+      <p class="section-sub">Pilih kecepatan yang sesuai kebutuhan. Semua paket sudah termasuk biaya langganan bulanan.</p>
     </div>
 
-    <div class="promo-banner-strip animate-in" style="margin-top:2rem">
-      <div class="promo-strip-text">
-        <h3><i class="fas fa-trophy"></i> Promo Elevate Eleven</h3>
-        <p>Berlaku untuk semua paket baru. Daftar sekarang, langsung nikmati!</p>
-      </div>
-      <div class="promo-strip-perks">
-        <div class="strip-perk"><strong>3 Bln</strong><span>Gratis Langganan</span></div>
-        <div class="strip-perk"><strong>+250</strong><span>Bonus Mbps</span></div>
-        <div class="strip-perk"><strong>FREE</strong><span>Pasang &amp; Daftar</span></div>
-      </div>
-    </div>
+    <div class="packages-grid animate-in" id="packagesGrid"></div>
 
-    <div class="packages-grid animate-in" id="packagesGrid" style="margin-top:1.5rem"></div>
-
-    <div style="text-align:center;margin-top:2rem">
+    <div style="text-align:center; margin-top:2rem">
       <button class="btn btn-primary" onclick="document.getElementById('pesan').scrollIntoView({behavior:'smooth'})">
-        Pilih Paket &amp; Daftar Sekarang <i class="fas fa-arrow-right"></i>
+        Pilih Paket & Daftar Sekarang <i class="fas fa-arrow-right"></i>
       </button>
     </div>
   </div>
 </section>
 
+<!-- ORDER SECTION -->
 <section class="section" id="pesan">
   <div class="container">
-    <div class="animate-in" style="text-align:center;margin-bottom:2.5rem">
+    <div class="animate-in" style="text-align:center; margin-bottom:2.5rem">
       <span class="section-eyebrow"><i class="fas fa-clipboard-list"></i> Pendaftaran</span>
       <h2 class="section-title">Daftar Internet CBN Fiber</h2>
-      <p class="section-sub" style="margin:0 auto">Isi form di bawah, kami akan follow-up via WhatsApp untuk konfirmasi &amp; jadwal pemasangan.</p>
+      <p class="section-sub" style="margin:0 auto">Isi form di bawah, kami akan follow-up via WhatsApp untuk konfirmasi & jadwal pemasangan.</p>
     </div>
 
     <div class="order-wrapper animate-in">
@@ -723,16 +593,16 @@ footer strong{color:var(--blue-300)}
         <div class="form-grid">
           <div class="form-group">
             <label class="form-label">Nama Lengkap *</label>
-            <input type="text" class="form-input" id="inp-name" placeholder="Nama kamu" />
+            <input type="text" class="form-input" id="inp-name" placeholder="Nama kamu">
           </div>
           <div class="form-group">
             <label class="form-label">No. WhatsApp *</label>
-            <input type="tel" class="form-input" id="inp-phone" placeholder="08xxxxxxxxxx" />
+            <input type="tel" class="form-input" id="inp-phone" placeholder="08xxxxxxxxxx">
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Email</label>
-          <input type="email" class="form-input" id="inp-email" placeholder="kamu@email.com (opsional)" />
+          <input type="email" class="form-input" id="inp-email" placeholder="kamu@email.com (opsional)">
         </div>
         <div class="action-row">
           <button class="btn-next" id="next-1" onclick="goStep(2)" disabled>Lanjut <i class="fas fa-arrow-right"></i></button>
@@ -740,9 +610,8 @@ footer strong{color:var(--blue-300)}
       </div>
 
       <div class="order-step" id="step-2">
-        <h3 class="step-title">Pilih paket &amp; tipe <i class="fas fa-box"></i></h3>
+        <h3 class="step-title">Pilih paket & tipe <i class="fas fa-box"></i></h3>
         <p class="step-sub">Mau pasang di rumah atau kantor?</p>
-
         <div class="type-cards">
           <div class="type-card" id="type-rumah" onclick="selectType('rumah')">
             <div class="type-icon"><i class="fas fa-home"></i></div>
@@ -755,7 +624,6 @@ footer strong{color:var(--blue-300)}
             <div class="type-desc">Ruko, kantor, tempat usaha</div>
           </div>
         </div>
-
         <div class="form-group">
           <label class="form-label">Pilih Paket *</label>
           <select class="form-input" id="inp-package">
@@ -767,7 +635,6 @@ footer strong{color:var(--blue-300)}
             <option value="200 Mbps (100+100) — Rp 592.740/bln">200 Mbps (100+100) — Rp 592.740/bln</option>
           </select>
         </div>
-
         <div class="action-row">
           <button class="btn-back" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> Kembali</button>
           <button class="btn-next" id="next-2" onclick="goStep(3)" disabled>Lanjut <i class="fas fa-arrow-right"></i></button>
@@ -776,23 +643,20 @@ footer strong{color:var(--blue-300)}
 
       <div class="order-step" id="step-3">
         <h3 class="step-title">Alamat pemasangan <i class="fas fa-map-marker-alt"></i></h3>
-        <p class="step-sub">Teknisi kami akan datang ke lokasi untuk survei &amp; pemasangan.</p>
-
+        <p class="step-sub">Teknisi kami akan datang ke lokasi untuk survei & pemasangan.</p>
         <div class="selected-pkg-summary" id="pkg-summary"></div>
-
         <div class="form-group">
           <label class="form-label">Alamat Lengkap *</label>
           <textarea class="form-input" id="inp-address" rows="3" placeholder="Nama jalan, nomor, RT/RW, kelurahan, kota"></textarea>
         </div>
         <div class="form-group">
           <label class="form-label">Jadwal Survei (opsional)</label>
-          <input type="date" class="form-input" id="inp-date" />
+          <input type="date" class="form-input" id="inp-date">
         </div>
         <div class="form-group">
           <label class="form-label">Catatan Tambahan</label>
-          <input type="text" class="form-input" id="inp-note" placeholder="Misal: pagar warna hijau, lantai 2, dll." />
+          <input type="text" class="form-input" id="inp-note" placeholder="Misal: pagar warna hijau, lantai 2, dll.">
         </div>
-
         <div class="action-row">
           <button class="btn-back" onclick="goStep(2)"><i class="fas fa-arrow-left"></i> Kembali</button>
           <button class="btn-next" id="next-3" onclick="submitOrder()" disabled>Kirim via WhatsApp <i class="fab fa-whatsapp"></i></button>
@@ -800,14 +664,14 @@ footer strong{color:var(--blue-300)}
       </div>
 
       <div class="order-step" id="step-4">
-        <div style="text-align:center;padding:1.5rem 0">
+        <div style="text-align:center; padding:1.5rem 0">
           <div class="done-icon"><i class="fas fa-check-circle"></i></div>
           <h3 class="step-title">Terima kasih!</h3>
-          <p style="color:var(--muted);font-size:.9rem;line-height:1.6;margin:1rem 0 1.5rem">
+          <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.6; margin:1rem 0 1.5rem">
             WhatsApp kami sudah terbuka dengan detail pesananmu.<br>
-            Tim CBN Fiber akan follow-up dalam <strong style="color:var(--blue-300)">1x24 jam</strong> untuk konfirmasi &amp; jadwal survei.
+            Tim CBN Fiber akan follow-up dalam <strong style="color:var(--blue-600)">1x24 jam</strong> untuk konfirmasi & jadwal survei.
           </p>
-          <div style="display:flex;flex-direction:column;gap:.75rem;max-width:280px;margin:0 auto">
+          <div style="display:flex; flex-direction:column; gap:0.75rem; max-width:280px; margin:0 auto">
             <button class="btn btn-wa" onclick="openWA()"><i class="fab fa-whatsapp"></i> Chat Langsung via WA</button>
             <button class="btn btn-ghost" onclick="resetOrder()">Daftar Lagi</button>
           </div>
@@ -817,6 +681,7 @@ footer strong{color:var(--blue-300)}
   </div>
 </section>
 
+<!-- FEATURES SECTION -->
 <section class="section" id="keunggulan">
   <div class="container">
     <div class="animate-in">
@@ -825,16 +690,17 @@ footer strong{color:var(--blue-300)}
       <p class="section-sub">Jaringan fiber optik terpercaya untuk kebutuhan digital modern.</p>
     </div>
     <div class="features-grid animate-in">
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div><div class="feature-title">Kecepatan Simetris</div><div class="feature-desc">Upload &amp; download sama cepatnya. Video call, cloud backup, streaming — semua lancar.</div></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><div class="feature-title">Stabil &amp; Handal</div><div class="feature-desc">99.9% uptime dengan infrastruktur fiber optik. Tidak terpengaruh cuaca seperti internet kabel biasa.</div></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div><div class="feature-title">Kecepatan Simetris</div><div class="feature-desc">Upload & download sama cepatnya. Video call, cloud backup, streaming — semua lancar.</div></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><div class="feature-title">Stabil & Handal</div><div class="feature-desc">99.9% uptime dengan infrastruktur fiber optik. Tidak terpengaruh cuaca seperti internet kabel biasa.</div></div>
       <div class="feature-card"><div class="feature-icon"><i class="fas fa-film"></i></div><div class="feature-title">Streaming Premium</div><div class="feature-desc">Bonus akses konten streaming premium tanpa buffering. Nikmati hiburan tanpa batas.</div></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-tools"></i></div><div class="feature-title">Teknisi Profesional</div><div class="feature-desc">Pemasangan rapi oleh teknisi berpengalaman. Gratis pasang &amp; pendaftaran untuk promo ini!</div></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-headset"></i></div><div class="feature-title">Support 24/7</div><div class="feature-desc">Ada kendala? Tim dukungan teknis siap membantu kapan saja lewat WhatsApp &amp; telepon.</div></div>
-      <div class="feature-card"><div class="feature-icon"><i class="fas fa-tag"></i></div><div class="feature-title">Harga Transparan</div><div class="feature-desc">Tidak ada biaya tersembunyi. Harga yang tertera sudah final, termasuk semua biaya promo.</div></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-tools"></i></div><div class="feature-title">Teknisi Profesional</div><div class="feature-desc">Pemasangan rapi oleh teknisi berpengalaman. Gratis pasang & pendaftaran untuk pelanggan baru!</div></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-headset"></i></div><div class="feature-title">Support 24/7</div><div class="feature-desc">Ada kendala? Tim dukungan teknis siap membantu kapan saja lewat WhatsApp & telepon.</div></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-tag"></i></div><div class="feature-title">Harga Transparan</div><div class="feature-desc">Tidak ada biaya tersembunyi. Harga yang tertera sudah final, termasuk semua biaya.</div></div>
     </div>
   </div>
 </section>
 
+<!-- CONTACT SECTION -->
 <section class="section" id="kontak">
   <div class="container">
     <div class="animate-in" style="margin-bottom:2.5rem">
@@ -851,7 +717,7 @@ footer strong{color:var(--blue-300)}
       </div>
       <div class="contact-cta">
         <h3>Siap Pasang Internet? <i class="fas fa-rocket"></i></h3>
-        <p>Hubungi kami sekarang dan dapatkan konsultasi gratis. Teknisi kami akan survei &amp; pasang di hari yang sama!</p>
+        <p>Hubungi kami sekarang dan dapatkan konsultasi gratis. Teknisi kami akan survei & pasang di hari yang sama!</p>
         <div class="contact-cta-buttons">
           <a href="https://wa.me/6281280493343?text=Halo,%20saya%20ingin%20daftar%20CBN%20Fiber.%20Bisa%20info%20paket%20dan%20jadwal%20pemasangan?" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat WhatsApp Sekarang</a>
           <a href="mailto:budimanwaruwu6@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Kirim Email</a>
@@ -867,228 +733,220 @@ footer strong{color:var(--blue-300)}
 </footer>
 
 <script>
-const packages = [
-  {speed:'20',unit:'Mbps',sub:'',price:'193.140',popular:false,features:['Untuk 1–3 pengguna','Streaming HD','Browsing & sosmed','Gratis pasang']},
-  {speed:'60',unit:'Mbps',sub:'30+30',price:'226.440',popular:false,features:['Untuk 3–5 pengguna','Streaming Full HD','Gaming online ringan','Bonus +250 Mbps']},
-  {speed:'100',unit:'Mbps',sub:'50+50',price:'259.740',popular:true,features:['Untuk 5–8 pengguna','4K Streaming','Gaming kompetitif','WFH lancar','Gratis pendaftaran']},
-  {speed:'150',unit:'Mbps',sub:'75+75',price:'381.840',popular:false,features:['Untuk 8–15 pengguna','Multi-device','Video conference HD','Server rumahan']},
-  {speed:'200',unit:'Mbps',sub:'100+100',price:'592.740',popular:false,features:['Cocok untuk bisnis','Tak terbatas device','Upload super cepat','SLA prioritas']},
-]
+  const packages = [
+    {speed:'20',unit:'Mbps',sub:'',price:'193.140',popular:false,features:['Untuk 1–3 pengguna','Streaming HD','Browsing & sosmed','Gratis pasang']},
+    {speed:'60',unit:'Mbps',sub:'30+30',price:'226.440',popular:false,features:['Untuk 3–5 pengguna','Streaming Full HD','Gaming online ringan']},
+    {speed:'100',unit:'Mbps',sub:'50+50',price:'259.740',popular:true,features:['Untuk 5–8 pengguna','4K Streaming','Gaming kompetitif','WFH lancar','Gratis pendaftaran']},
+    {speed:'150',unit:'Mbps',sub:'75+75',price:'381.840',popular:false,features:['Untuk 8–15 pengguna','Multi-device','Video conference HD','Server rumahan']},
+    {speed:'200',unit:'Mbps',sub:'100+100',price:'592.740',popular:false,features:['Cocok untuk bisnis','Tak terbatas device','Upload super cepat','SLA prioritas']},
+  ];
 
-const grid = document.getElementById('packagesGrid')
-packages.forEach((p,i) => {
-  grid.innerHTML += `
-    <div class="pkg-card${p.popular?' selected':''}" id="pkg-${i}" onclick="selectPackage(${i})">
-      ${p.popular?'<div class="pkg-badge"><i class="fas fa-star"></i> Terlaris</div>':''}
-      <div class="pkg-speed">${p.speed}<sup>${p.unit}</sup></div>
-      <div class="pkg-speed-sub">${p.sub||'Kecepatan penuh'}</div>
-      <div class="pkg-price">Rp ${p.price}</div>
-      <div class="pkg-price-label">per bulan</div>
-      <div class="pkg-divider"></div>
-      <ul class="pkg-features">${p.features.map(f=>`<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}</ul>
-      <button class="pkg-select-btn">${p.popular?'<i class="fas fa-check"></i> Dipilih':'Pilih Paket'}</button>
-    </div>
-  `
-})
+  const grid = document.getElementById('packagesGrid');
+  packages.forEach((p, i) => {
+    grid.innerHTML += `
+      <div class="pkg-card${p.popular?' selected':''}" id="pkg-${i}" onclick="selectPackage(${i})">
+        ${p.popular?'<div class="pkg-badge"><i class="fas fa-star"></i> Terlaris</div>':''}
+        <div class="pkg-speed">${p.speed}<sup>${p.unit}</sup></div>
+        <div class="pkg-speed-sub">${p.sub||'Kecepatan penuh'}</div>
+        <div class="pkg-price">Rp ${p.price}</div>
+        <div class="pkg-price-label">per bulan</div>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-features">${p.features.map(f=>`<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}</ul>
+        <button class="pkg-select-btn">${p.popular?'<i class="fas fa-check"></i> Dipilih':'Pilih Paket'}</button>
+      </div>
+    `;
+  });
 
-function selectPackage(idx) {
-  packages.forEach((_,i) => {
-    const c = document.getElementById(`pkg-${i}`)
-    c.classList.remove('selected')
-    c.querySelector('.pkg-select-btn').innerHTML = 'Pilih Paket'
-  })
-  const c = document.getElementById(`pkg-${idx}`)
-  c.classList.add('selected')
-  c.querySelector('.pkg-select-btn').innerHTML = '<i class="fas fa-check"></i> Dipilih'
-  const p = packages[idx]
-  const sel = document.getElementById('inp-package')
-  const val = `${p.speed} Mbps${p.sub?' ('+p.sub+')':''} — Rp ${p.price}/bln`
-  for(let o of sel.options) { if(o.value === val) { sel.value = val; break } }
-  checkStep2()
-  document.getElementById('pesan').scrollIntoView({behavior:'smooth'})
-}
-
-function closeBanner(){
-  document.getElementById('banner-overlay').classList.add('hidden')
-  sessionStorage.setItem('banner_closed','1')
-}
-if(sessionStorage.getItem('banner_closed')){
-  document.getElementById('banner-overlay').classList.add('hidden')
-}
-
-function toggleMenu(){
-  const nl = document.getElementById('navLinks')
-  const hb = document.getElementById('hamburger')
-  const open = nl.classList.toggle('open')
-  hb.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>'
-}
-function closeMobileMenu(){
-  document.getElementById('navLinks').classList.remove('open')
-  document.getElementById('hamburger').innerHTML = '<i class="fas fa-bars"></i>'
-}
-
-let orderData = {}
-let currentStep = 1
-let selectedType = ''
-
-function goStep(n) {
-  document.getElementById(`step-${currentStep}`).classList.remove('active')
-  currentStep = n
-  document.getElementById(`step-${n}`).classList.add('active')
-  updateStepDots()
-  if(n===3) updateSummary()
-}
-
-function updateStepDots(){
-  for(let i=1;i<=4;i++){
-    const dot = document.getElementById(`dot-${i}`)
-    dot.classList.remove('active','done','pending')
-    if(i < currentStep) { dot.classList.add('done'); dot.innerHTML = '<i class="fas fa-check"></i>' }
-    else if(i === currentStep) { dot.classList.add('active'); dot.innerHTML = i===4?'<i class="fas fa-check"></i>':i }
-    else { dot.classList.add('pending'); dot.innerHTML = i===4?'<i class="fas fa-check"></i>':i }
+  function selectPackage(idx) {
+    packages.forEach((_, i) => {
+      const c = document.getElementById(`pkg-${i}`);
+      c.classList.remove('selected');
+      c.querySelector('.pkg-select-btn').innerHTML = 'Pilih Paket';
+    });
+    const c = document.getElementById(`pkg-${idx}`);
+    c.classList.add('selected');
+    c.querySelector('.pkg-select-btn').innerHTML = '<i class="fas fa-check"></i> Dipilih';
+    const p = packages[idx];
+    const sel = document.getElementById('inp-package');
+    const val = `${p.speed} Mbps${p.sub?' ('+p.sub+')':''} — Rp ${p.price}/bln`;
+    for(let o of sel.options) { if(o.value === val) { sel.value = val; break; } }
+    checkStep2();
+    document.getElementById('pesan').scrollIntoView({behavior:'smooth'});
   }
-  for(let i=1;i<=3;i++){
-    const line = document.getElementById(`line-${i}`)
-    line.classList.toggle('done', i < currentStep)
+
+  function toggleMenu() {
+    const nl = document.getElementById('navLinks');
+    const hb = document.getElementById('hamburger');
+    const open = nl.classList.toggle('open');
+    hb.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
   }
-}
+  function closeMobileMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').innerHTML = '<i class="fas fa-bars"></i>';
+  }
 
-['inp-name','inp-phone'].forEach(id => {
-  document.getElementById(id).addEventListener('input', checkStep1)
-})
-function checkStep1(){
-  const n = document.getElementById('inp-name').value.trim()
-  const p = document.getElementById('inp-phone').value.trim()
-  document.getElementById('next-1').disabled = !(n.length >= 2 && p.length >= 9)
-}
+  let orderData = {};
+  let currentStep = 1;
+  let selectedType = '';
 
-function selectType(t){
-  selectedType = t
-  document.getElementById('type-rumah').classList.toggle('selected', t==='rumah')
-  document.getElementById('type-kantor').classList.toggle('selected', t==='kantor')
-  checkStep2()
-}
-document.getElementById('inp-package').addEventListener('change', checkStep2)
-function checkStep2(){
-  const ok = selectedType && document.getElementById('inp-package').value
-  document.getElementById('next-2').disabled = !ok
-}
+  function goStep(n) {
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    currentStep = n;
+    document.getElementById(`step-${n}`).classList.add('active');
+    updateStepDots();
+    if(n===3) updateSummary();
+  }
 
-document.getElementById('inp-address').addEventListener('input', checkStep3)
-function checkStep3(){
-  document.getElementById('next-3').disabled = !document.getElementById('inp-address').value.trim()
-}
-
-function updateSummary(){
-  const pkg = document.getElementById('inp-package').value
-  if(!pkg) return
-  const [spd, price] = pkg.split(' — ')
-  document.getElementById('pkg-summary').innerHTML = `
-    <div>
-      <div class="summary-speed"><i class="fas fa-box"></i> ${spd}</div>
-      <div class="summary-label">Tipe: ${selectedType === 'rumah' ? '<i class="fas fa-home"></i> Rumah' : '<i class="fas fa-building"></i> Kantor/Bisnis'}</div>
-    </div>
-    <div style="text-align:right">
-      <div class="summary-price">${price}</div>
-      <div class="summary-label">Gratis pasang &amp; daftar</div>
-    </div>
-  `
-}
-
-function submitOrder(){
-  const name  = document.getElementById('inp-name').value.trim()
-  const phone = document.getElementById('inp-phone').value.trim()
-  const email = document.getElementById('inp-email').value.trim()
-  const pkg   = document.getElementById('inp-package').value
-  const addr  = document.getElementById('inp-address').value.trim()
-  const date  = document.getElementById('inp-date').value
-  const note  = document.getElementById('inp-note').value.trim()
-
-  const lines = [
-    `Halo CBN Fiber!`,
-    ``,
-    `Saya ingin daftar internet CBN Fiber:`,
-    ``,
-    `Nama  : ${name}`,
-    `WA    : ${phone}`,
-    email ? `Email : ${email}` : '',
-    `Tipe  : ${selectedType === 'rumah' ? 'Rumah' : 'Kantor/Bisnis'}`,
-    `Paket : ${pkg}`,
-    `Alamat: ${addr}`,
-    date  ? `Jadwal: ${date}` : '',
-    note  ? `Catatan: ${note}` : '',
-    ``,
-    `Terima kasih!`,
-  ].filter(Boolean).join('\n')
-
-  orderData = {name, phone, email, pkg, addr, date, note, type: selectedType}
-  localStorage.setItem('cbn_user', JSON.stringify({name, phone, email}))
-
-  const waUrl = `https://wa.me/6281280493343?text=${encodeURIComponent(lines)}`
-  window.open(waUrl, '_blank')
-  goStep(4)
-}
-
-function openWA(){
-  const name = orderData.name || ''
-  const msg = `Halo CBN Fiber! Saya ${name} ingin menanyakan info pemasangan internet CBN Fiber.`
-  window.open(`https://wa.me/6281280493343?text=${encodeURIComponent(msg)}`, '_blank')
-}
-
-function resetOrder(){
-  document.getElementById('inp-name').value = ''
-  document.getElementById('inp-phone').value = ''
-  document.getElementById('inp-email').value = ''
-  document.getElementById('inp-package').value = ''
-  document.getElementById('inp-address').value = ''
-  document.getElementById('inp-date').value = ''
-  document.getElementById('inp-note').value = ''
-  selectedType = ''
-  document.getElementById('type-rumah').classList.remove('selected')
-  document.getElementById('type-kantor').classList.remove('selected')
-  orderData = {}
-  goStep(1)
-  checkStep1()
-  checkStep2()
-  checkStep3()
-}
-
-const saved = localStorage.getItem('cbn_user')
-if(saved){
-  try{
-    const u = JSON.parse(saved)
-    if(u.name) document.getElementById('inp-name').value = u.name
-    if(u.phone) document.getElementById('inp-phone').value = u.phone
-    if(u.email) document.getElementById('inp-email').value = u.email
-    checkStep1()
-  }catch(e){}
-}
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      e.target.classList.add('visible')
-      observer.unobserve(e.target)
+  function updateStepDots() {
+    for(let i=1; i<=4; i++) {
+      const dot = document.getElementById(`dot-${i}`);
+      dot.classList.remove('active','done','pending');
+      if(i < currentStep) { dot.classList.add('done'); dot.innerHTML = '<i class="fas fa-check"></i>'; }
+      else if(i === currentStep) { dot.classList.add('active'); dot.innerHTML = i===4?'<i class="fas fa-check"></i>':i; }
+      else { dot.classList.add('pending'); dot.innerHTML = i===4?'<i class="fas fa-check"></i>':i; }
     }
-  })
-}, {threshold: 0.1})
-document.querySelectorAll('.animate-in').forEach(el => observer.observe(el))
+    for(let i=1; i<=3; i++) {
+      const line = document.getElementById(`line-${i}`);
+      line.classList.toggle('done', i < currentStep);
+    }
+  }
 
-document.querySelectorAll('.packages-grid .pkg-card, .features-grid .feature-card').forEach((el,i) => {
-  el.style.transitionDelay = (i * 0.07) + 's'
-})
+  ['inp-name','inp-phone'].forEach(id => {
+    document.getElementById(id).addEventListener('input', checkStep1);
+  });
+  function checkStep1() {
+    const n = document.getElementById('inp-name').value.trim();
+    const p = document.getElementById('inp-phone').value.trim();
+    document.getElementById('next-1').disabled = !(n.length >= 2 && p.length >= 9);
+  }
 
-const sections = document.querySelectorAll('section[id]')
-const navLinks = document.querySelectorAll('.nav-links a')
-window.addEventListener('scroll', () => {
-  let cur = ''
-  sections.forEach(s => {
-    if(window.scrollY >= s.offsetTop - 120) cur = s.id
-  })
-  navLinks.forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + cur || (cur === 'beranda' && a.getAttribute('href') === '#'))
-  })
-}, {passive:true})
+  function selectType(t) {
+    selectedType = t;
+    document.getElementById('type-rumah').classList.toggle('selected', t==='rumah');
+    document.getElementById('type-kantor').classList.toggle('selected', t==='kantor');
+    checkStep2();
+  }
+  document.getElementById('inp-package').addEventListener('change', checkStep2);
+  function checkStep2() {
+    const ok = selectedType && document.getElementById('inp-package').value;
+    document.getElementById('next-2').disabled = !ok;
+  }
+
+  document.getElementById('inp-address').addEventListener('input', checkStep3);
+  function checkStep3() {
+    document.getElementById('next-3').disabled = !document.getElementById('inp-address').value.trim();
+  }
+
+  function updateSummary() {
+    const pkg = document.getElementById('inp-package').value;
+    if(!pkg) return;
+    const [spd, price] = pkg.split(' — ');
+    document.getElementById('pkg-summary').innerHTML = `
+      <div>
+        <div class="summary-speed"><i class="fas fa-box"></i> ${spd}</div>
+        <div class="summary-label">Tipe: ${selectedType === 'rumah' ? '<i class="fas fa-home"></i> Rumah' : '<i class="fas fa-building"></i> Kantor/Bisnis'}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="summary-price">${price}</div>
+        <div class="summary-label">Gratis pasang & daftar</div>
+      </div>
+    `;
+  }
+
+  function submitOrder() {
+    const name  = document.getElementById('inp-name').value.trim();
+    const phone = document.getElementById('inp-phone').value.trim();
+    const email = document.getElementById('inp-email').value.trim();
+    const pkg   = document.getElementById('inp-package').value;
+    const addr  = document.getElementById('inp-address').value.trim();
+    const date  = document.getElementById('inp-date').value;
+    const note  = document.getElementById('inp-note').value.trim();
+
+    const lines = [
+      `Halo CBN Fiber!`,
+      ``,
+      `Saya ingin daftar internet CBN Fiber:`,
+      ``,
+      `Nama  : ${name}`,
+      `WA    : ${phone}`,
+      email ? `Email : ${email}` : '',
+      `Tipe  : ${selectedType === 'rumah' ? 'Rumah' : 'Kantor/Bisnis'}`,
+      `Paket : ${pkg}`,
+      `Alamat: ${addr}`,
+      date  ? `Jadwal: ${date}` : '',
+      note  ? `Catatan: ${note}` : '',
+      ``,
+      `Terima kasih!`,
+    ].filter(Boolean).join('\n');
+
+    orderData = {name, phone, email, pkg, addr, date, note, type: selectedType};
+    localStorage.setItem('cbn_user', JSON.stringify({name, phone, email}));
+
+    const waUrl = `https://wa.me/6281280493343?text=${encodeURIComponent(lines)}`;
+    window.open(waUrl, '_blank');
+    goStep(4);
+  }
+
+  function openWA() {
+    const name = orderData.name || '';
+    const msg = `Halo CBN Fiber! Saya ${name} ingin menanyakan info pemasangan internet CBN Fiber.`;
+    window.open(`https://wa.me/6281280493343?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function resetOrder() {
+    document.getElementById('inp-name').value = '';
+    document.getElementById('inp-phone').value = '';
+    document.getElementById('inp-email').value = '';
+    document.getElementById('inp-package').value = '';
+    document.getElementById('inp-address').value = '';
+    document.getElementById('inp-date').value = '';
+    document.getElementById('inp-note').value = '';
+    selectedType = '';
+    document.getElementById('type-rumah').classList.remove('selected');
+    document.getElementById('type-kantor').classList.remove('selected');
+    orderData = {};
+    goStep(1);
+    checkStep1();
+    checkStep2();
+    checkStep3();
+  }
+
+  const saved = localStorage.getItem('cbn_user');
+  if(saved) {
+    try {
+      const u = JSON.parse(saved);
+      if(u.name) document.getElementById('inp-name').value = u.name;
+      if(u.phone) document.getElementById('inp-phone').value = u.phone;
+      if(u.email) document.getElementById('inp-email').value = u.email;
+      checkStep1();
+    } catch(e) {}
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.packages-grid .pkg-card, .features-grid .feature-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => {
+      if(window.scrollY >= s.offsetTop - 120) cur = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur || (cur === 'beranda' && a.getAttribute('href') === '#'));
+    });
+  }, {passive: true});
 </script>
 </body>
 </html>
